@@ -62,7 +62,7 @@ def r2_dipole(forward, evoked, tmin=None, tmax=None):
 
     #extract dipole information and create a dipole object
     dipole_amplitude = np.linalg.norm(best_free_ori_stc_now) #dipole amplitude
-    dipole_pos = forward['source_rr'][best_pos_ind] #dipole position in mri
+    dipole_pos = forward['source_rr'][best_pos_ind] #dipole position
     dipole_ori = best_free_ori_stc_now / dipole_amplitude #dipole orientation normalized (q/amplitude)
     dipole = mne.Dipole([best_time], [dipole_pos], [dipole_amplitude], [dipole_ori], [r2score*100], name=f"dipole_{best_pos_ind}") #create dipole object (mne.Dipole)
     return dipole, best_free_ori_stc_now, evoked_fit, best_match, best_pos_ind, evoked_residual
@@ -115,7 +115,7 @@ def dipole_to_pos(forward, evoked, tmin, tmax, pos_ind, n_times, maximize, ori_f
 
     #extract dipole information and create a dipole object
     evoked_fit = mne.EvokedArray(data=best_topo.reshape(n_channels,1), info=evoked.info, tmin=best_time, nave=1, kind='single_epoch', baseline=None)
-    dipole_pos = forward['source_rr'][pos_ind] #dipole position in mri
+    dipole_pos = forward['source_rr'][pos_ind] #dipole position
     if ori_fixed is None:
         dipole_ori = best_ori_stc_now / amplitude #dipole orientation normalized (q/amplitude)
     else:
